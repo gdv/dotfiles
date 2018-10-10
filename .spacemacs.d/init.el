@@ -471,7 +471,6 @@ you should place your code here."
     (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
     ;; AUCTeX configuration
     (setq-default TeX-master nil)
-    (turn-on-auto-fill)
     (auto-revert-mode)
     (TeX-source-correlate-mode)
     TeX-interactive-mode
