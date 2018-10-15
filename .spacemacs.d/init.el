@@ -356,9 +356,7 @@ you should place your code here."
   ;; Make executable each script
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
  ;;; Abbreviations
-  (setq abbrev-file-name "~/.emacs.d/abbrev_defs.el")
   (setq-default abbrev-mode t)
-  (setq save-abbrevs 'silently)
  ;;;; Global keys
   (global-set-key [(insert)]             'save-buffer)
   (global-set-key [(control begin)]      'beginning-of-buffer)
@@ -433,7 +431,7 @@ you should place your code here."
 
   (spacemacs/set-leader-keys "sq" 'vr/query-replace)
   (spacemacs/set-leader-keys "sy" 'vr/query)
-  (spacemacs/set-leader-keys "sy" 'vr/isearch-backward)
+  (spacemacs/set-leader-keys "su" 'vr/isearch-backward)
 
 
   ;; Deft
@@ -661,7 +659,6 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-indent-level 0)
- '(abbrev-file-name "~/.spacemacs.d/abbrev_defs.el")
  '(aggressive-indent-excluded-modes
    (quote
     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
@@ -693,7 +690,6 @@ you should place your code here."
  '(ivy-count-format "(%d/%d) ")
  '(kept-new-versions 16)
  '(mouse-avoidance-mode (quote exile) nil (avoid))
- '(only-global-abbrevs t)
  '(package-selected-packages
    (quote
     (swiper cdlatex treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))

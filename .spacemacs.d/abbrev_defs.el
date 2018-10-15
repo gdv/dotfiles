@@ -39,7 +39,7 @@
     ("`ti" "\\title" nil 0)
     ("`us" "\\usage" nil 0)
     ("`va" "\\value" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'TeX-error-overview-mode-abbrev-table '())
 
@@ -55,9 +55,7 @@
 
 (define-abbrev-table 'atom-blogger-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'awk-mode-abbrev-table '())
 
 (define-abbrev-table 'bibtex-mode-abbrev-table '())
 
@@ -69,13 +67,9 @@
 
 (define-abbrev-table 'browse-kill-ring-mode-abbrev-table '())
 
-(define-abbrev-table 'c++-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'c++-mode-abbrev-table '())
 
-(define-abbrev-table 'c-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'c-mode-abbrev-table '())
 
 (define-abbrev-table 'calendar-mode-abbrev-table '())
 
@@ -127,7 +121,7 @@
     ("unless" "unless" cperl-electric-keyword 0)
     ("until" "until" cperl-electric-keyword 0)
     ("while" "while" cperl-electric-keyword 0)
-    ))
+   ))
 
 (define-abbrev-table 'css-mode-abbrev-table '())
 
@@ -191,6 +185,10 @@
 
 (define-abbrev-table 'ess-julia-mode-abbrev-table '())
 
+(define-abbrev-table 'evil-command-window-mode-abbrev-table '())
+
+(define-abbrev-table 'evil-list-view-mode-abbrev-table '())
+
 (define-abbrev-table 'f90-mode-abbrev-table '())
 
 (define-abbrev-table 'flycheck-error-list-mode-abbrev-table '())
@@ -207,7 +205,11 @@
 
 (define-abbrev-table 'ggtags-view-search-history-mode-abbrev-table '())
 
+(define-abbrev-table 'git-commit-elisp-text-mode-abbrev-table '())
+
 (define-abbrev-table 'git-commit-mode-abbrev-table '())
+
+(define-abbrev-table 'git-gutter+-commit-mode-abbrev-table '())
 
 (define-abbrev-table 'git-rebase-mode-abbrev-table '())
 
@@ -1138,7 +1140,7 @@
     ("ytou" "you" nil 0)
     ("yuo" "you" nil 0)
     ("yuor" "your" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'go-mode-abbrev-table '())
 
@@ -1182,9 +1184,7 @@
 
 (define-abbrev-table 'ivy-occur-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'java-mode-abbrev-table '())
 
 (define-abbrev-table 'js-mode-abbrev-table '())
 
@@ -1206,6 +1206,7 @@
     ("b2" "b_{2}" nil 0)
     ("b3" "b_{3}" nil 0)
     ("balg" "\\begin{algorithm} " nil 0)
+    ("bblo" "\\begin{block}" nil 0)
     ("bcase" "\\begin{case} " nil 0)
     ("bclm" "\\begin{claim} " nil 0)
     ("bcm" "\\begin{comment}" nil 0)
@@ -1225,8 +1226,6 @@
     ("bfig" "\\begin{figure}" nil 0)
     ("bints" "\\bigcap" nil 0)
     ("bitm" "\\begin{itemize}" nil 0)
-    ("bsli" "\\begin{frame}\\frametitle{ }" nil 0)
-    ("bblo" "\\begin{block}" nil 0)
     ("bl" "b_{l}" nil 0)
     ("ble" "" latex-skel-lemma 0)
     ("blem" "\\begin{lemma} " nil 0)
@@ -1244,6 +1243,7 @@
     ("bqst" "\\begin{question} " nil 0)
     ("bquo" "\\begin{quote} " nil 1)
     ("brmk" "\\begin{remark} " nil 0)
+    ("bsli" "\\begin{frame}\\frametitle{ }" nil 0)
     ("bth" "" latex-skel-theorem 0)
     ("bthm" "\\begin{theorem} " nil 0)
     ("bthmt" "\\begin{theorem}[Gauss' Theorem] " nil 0)
@@ -1280,7 +1280,11 @@
     ("lora" "\\longrightarrow" nil 0)
     ("lra" "\\leftrightarrow" nil 0)
     ("mbb" "mathbb" nil 0)
-    ("ngdv" "\\notaestesa{GDV}{" nil 2)
+    ("ngdv" "\\notaestesa{GDV}{" nil 3)
+    ("nppp" "definition}
+
+" nil 0)
+    ("prova" "dddd" nil 0)
     ("ribr" "\\right\\}" nil 0)
     ("rir" "\\right\\rangle" nil 0)
     ("rle" "\\rangle" nil 0)
@@ -1293,6 +1297,9 @@
     ("subs" "\\subset" nil 0)
     ("supe" "\\supseteq" nil 0)
     ("sups" "\\supset" nil 0)
+    ("ttttt" "definition}
+
+" nil 0)
     ("v0" "v_{0}" nil 0)
     ("v1" "v_{1}" nil 3)
     ("v2" "v_{2}" nil 2)
@@ -1311,7 +1318,7 @@
     ("wn" "w_{n}" nil 0)
     ("wp" "w_{p}" nil 0)
     ("xx" "LaTeX" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'ld-script-mode-abbrev-table '())
 
@@ -1391,9 +1398,7 @@
 
 (define-abbrev-table 'nxml-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'objc-mode-abbrev-table '())
 
 (define-abbrev-table 'occur-edit-mode-abbrev-table '())
 
@@ -1427,7 +1432,7 @@
     ("`up" "unwind_protect" nil 0)
     ("`upc" "unwind_protect_cleanup" nil 0)
     ("`w" "while ()" nil 0)
-    ))
+   ))
 
 (define-abbrev-table 'org-export-stack-mode-abbrev-table '())
 
@@ -1443,15 +1448,15 @@
 
 (define-abbrev-table 'php-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'pike-mode-abbrev-table '())
 
 (define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
 (define-abbrev-table 'post-mode-abbrev-table '())
 
 (define-abbrev-table 'process-menu-mode-abbrev-table '())
+
+(define-abbrev-table 'profiler-report-mode-abbrev-table '())
 
 (define-abbrev-table 'prog-mode-abbrev-table '())
 
@@ -1465,9 +1470,7 @@
 
 (define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-skeleton-abbrev-table
-  '(
-    ))
+(define-abbrev-table 'python-mode-skeleton-abbrev-table '())
 
 (define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
@@ -1515,6 +1518,8 @@
 
 (define-abbrev-table 'snippet-mode-abbrev-table '())
 
+(define-abbrev-table 'spacemacs/report-issue-mode-abbrev-table '())
+
 (define-abbrev-table 'special-mode-abbrev-table '())
 
 (define-abbrev-table 'speedbar-mode-abbrev-table '())
@@ -1540,13 +1545,17 @@ Vorrei che venissero abilitati all'utilizzo del LIV gli studenti:
 Grazie mille," nil 2)
     ("cord" "Cordialmente," nil 0)
     ("ngdv" "prova" nil 2)
-    ))
+   ))
 
 (define-abbrev-table 'twittering-edit-mode-abbrev-table '())
 
 (define-abbrev-table 'url-cookie-mode-abbrev-table '())
 
+(define-abbrev-table 'use-package-statistics-mode-abbrev-table '())
+
 (define-abbrev-table 'vc-annotate-mode-abbrev-table '())
+
+(define-abbrev-table 'vc-dir-mode-abbrev-table '())
 
 (define-abbrev-table 'vc-dired-mode-abbrev-table '())
 
@@ -1569,3 +1578,4 @@ Grazie mille," nil 2)
 (define-abbrev-table 'xgit-diff-mode-abbrev-table '())
 
 (define-abbrev-table 'xref--xref-buffer-mode-abbrev-table '())
+
