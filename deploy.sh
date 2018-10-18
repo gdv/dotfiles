@@ -7,13 +7,18 @@ git clone https://github.com/Bash-it/bash-it.git ~/.bash_it
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
+
 dir=$(dirname "$0")
-for f in      .bash_login \
+for f in     .bash_login \
              .bash_logout \
              .bash_profile \
              .bashrc \
-             .spacemacs.d
+             .spacemacs.d \
+             .vimrc
 do
     test -e ~/"$f" && rm -fr ~/"$f"
     ln -s "$dir"/"$f" ~/"$f"
 done
+
+mkdir -p ~/.vim/spell
+cd ~/.vim/spell/ && wget http://ftp.vim.org/vim/runtime/spell/it.utf-8.spl
