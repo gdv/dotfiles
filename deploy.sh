@@ -9,6 +9,7 @@ vim +PluginInstall +qall
 
 
 dir=$(dirname "$0")
+cd
 for f in     .bash_login \
              .bash_logout \
              .bash_profile \
