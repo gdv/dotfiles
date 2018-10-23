@@ -31,7 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -58,6 +57,7 @@ values."
      ranger
      spell-checking
      smex
+     sql
      syntax-checking
      yaml
      version-control
@@ -427,7 +427,6 @@ you should place your code here."
     (switch-to-buffer (other-buffer (current-buffer) 1)))
   
   (global-set-key (kbd "C-ì") 'switch-to-previous-buffer)
-  (global-set-key (kbd "C-z") 'undo-tree-visualize)
 
 
   (spacemacs/set-leader-keys "sq" 'vr/query-replace)
@@ -450,67 +449,46 @@ you should place your code here."
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex) 
-  ;; (add-to-list 'coding-modes 'LaTeX-mode)
-  (setq TeX-shell "/bin/bash"
-        TeX-electric-sub-and-superscript t
-        TeX-arg-right-insert-p t
-        TeX-electric-math (cons "$" "$")
-        LaTeX-electric-left-right-brace t)
-  (defun my-latex-mode-init ()
-    (define-key LaTeX-mode-map [(f9)]    'TeX-view)
-    (setq TeX-electric-sub-and-superscript t
-          TeX-arg-right-insert-p t
-          TeX-electric-math (cons "$" "$")
-          LaTeX-electric-left-right-brace t
-          )
-    ;; (define-key LaTeX-mode-map (kbd "_") 'tex-smart-underscore)
-    ;; (define-key LaTeX-mode-map (kbd "^") 'tex-smart-caret)
-    (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
-    (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
-    (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
-    ;; AUCTeX configuration
-    (setq-default TeX-master nil)
-    (auto-revert-mode)
-    (TeX-source-correlate-mode)
-    TeX-interactive-mode
-    ;;Abbreviations
-    (setq local-abbrev-table latex-mode-abbrev-table)
-    ;; Smart quotes
-    (defadvice TeX-insert-quote (around wrap-region activate)
-      (cond
-       (mark-active
-        (let ((skeleton-end-newline nil))
-          (skeleton-insert `(nil ,TeX-open-quote _ ,TeX-close-quote) -1)))
-       ((looking-at (regexp-opt (list TeX-open-quote TeX-close-quote)))
-        (forward-char (length TeX-open-quote)))
-       (t
-        ad-do-it)))
-    (put 'TeX-insert-quote 'delete-selection nil)
-    ;; Math mode for LaTex
-    (LaTeX-math-mode)
-    )
+  (setq    TeX-arg-right-insert-p t
+           LaTeX-electric-left-right-brace t)
+  (define-key LaTeX-mode-map [(f9)]    'TeX-view)
+  (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
+  (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
+  (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
+  (defadvice TeX-insert-quote (around wrap-region activate)
+    (cond
+     (mark-active
+      (let ((skeleton-end-newline nil))
+        (skeleton-insert `(nil ,TeX-open-quote _ ,TeX-close-quote) -1)))
+     ((looking-at (regexp-opt (list TeX-open-quote TeX-close-quote)))
+      (forward-char (length TeX-open-quote)))
+     (t
+      ad-do-it)))
+  (put 'TeX-insert-quote 'delete-selection nil)
+  ;;  (defun my-latex-mode-init ()
+  ;;    ;; AUCTeX configuration
+  ;;    (auto-revert-mode)
+  ;;    (TeX-source-correlate-mode)
+  ;;    ;;Abbreviations
+  ;;    (setq local-abbrev-table latex-mode-abbrev-table)
+  ;;    ;; Smart quotes
+  ;;    ;; Math mode for LaTex
+  ;;    (LaTeX-math-mode)
+  ;;    )
  ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
-  (setq latex/override-preview-map nil
-        latex/override-font-map nil
-        )
+  ;; Turn on auto-fill-mode for BibTeX and LaTeX
+  (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
+  ;;
+  ;; RefTeX
   ;; PDF mode for latex
   (setq-default TeX-PDF-mode t)
   ;;   If you want to make AUC TeX aware of style files and multi-file
   ;;   documents right away, insert the following in your `.emacs' file.
   (setq TeX-save-query nil) ;;autosave before compiling
-  (setq TeX-parse-self t)
-  ;; Turn on auto-fill-mode for BibTeX and LaTeX
-  (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
-  ;;
-  ;; RefTeX
-                                        ;  (turn-on-reftex)
   (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
-  (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
   (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
   (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
   (setq reftex-format-cite-function
         '(lambda (key fmt)
            (let ((cite (replace-regexp-in-string "%l" key fmt)))
@@ -562,44 +540,6 @@ you should place your code here."
     (TeX-save-document (TeX-master-file))
     (compile compile-command)
     )
-  ;; following for latex, adapted from ess-smart-underscore
-  ;; can also be implemented using sequential command http://www.emacswiki.org/emacs/SequentialCommand
- ;;  (defun tex-smart-underscore ()
- ;;    "Smart \"_\" key: insert \"_{}\".
- ;; If the underscore key is pressed a second time, \"_{}\" is removed and replaced by the underscore."
- ;;    (interactive)
- ;;    (let ((assign-len (length "_{")))
- ;;      (if (and
- ;;           (>= (point) (+ assign-len (point-min))) ;check that we can move back
- ;;           (save-excursion
- ;;             (backward-char assign-len)
- ;;             (looking-at "_{}")))
- ;;          ;; If we are currently looking at ess-S-assign, replace it with _
- ;;          (progn
- ;;            (forward-char)
- ;;            (delete-backward-char (+ 1 assign-len))
- ;;            (insert "_"))
- ;;        (delete-horizontal-space)
- ;;        (insert "_{}")
- ;;        (backward-char))))
- ;;  (defun tex-smart-caret ()
- ;;    "Smart \"^\" key: insert \"^{}\".
- ;; If the caret key is pressed a second time, \"^{}\" is removed and replaced by the caret."
- ;;    (interactive)
- ;;    (let ((assign-len (length "^{")))
- ;;      (if (and
- ;;           (>= (point) (+ assign-len (point-min))) ;check that we can move back
- ;;           (save-excursion
- ;;             (backward-char assign-len)
- ;;             (looking-at "\\^{}"))) ;; looking-at reads regexp, so need to escape the caret character
- ;;          ;; If we are currently looking at ess-S-assign, replace it with ^
- ;;          (progn
- ;;            (forward-char)
- ;;            (delete-backward-char (+ 1 assign-len))
- ;;            (insert "^"))
- ;;        (delete-horizontal-space)
- ;;        (insert "^{}")
- ;;        (backward-char))))
   (defun tex-smart-period ()
     "Smart \".\" key: insert \".\n\".
  If the period key is pressed a second time, \".\n\" is removed and replaced by the period."
@@ -616,6 +556,7 @@ you should place your code here."
             (insert "."))
         (delete-horizontal-space)
         (insert ".\n"))))
+
   ;; Compilation window should be small and disappear if there is no error
   ;; from http://www.emacswiki.org/emacs/ModeCompile
   (setq compilation-finish-functions 'compile-autoclose)
@@ -629,7 +570,6 @@ you should place your code here."
           (t
            (message "Compilation exited abnormally: %s" string))))
 
-  (define-key evil-emacs-state-map (kbd "C-z") 'undo-tree-visualize)
 
  ;;; Compile
  ;;; http://www.emacswiki.org/emacs/CompileCommand
@@ -660,6 +600,9 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-indent-level 0)
+ '(TeX-electric-math (quote ("$" . "$")))
+ '(TeX-electric-sub-and-superscript t)
+ '(TeX-shell "/bin/bash")
  '(aggressive-indent-excluded-modes
    (quote
     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
@@ -677,6 +620,7 @@ you should place your code here."
  '(desktop-path (quote ("/home/gianluca/.emacs.d/.cache/")))
  '(desktop-save t)
  '(desktop-save-mode t)
+ '(display-line-numbers t)
  '(electric-layout-mode t)
  '(fill-column 120)
  '(global-aggressive-indent-mode t)
