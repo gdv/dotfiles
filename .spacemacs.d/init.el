@@ -357,8 +357,11 @@ you should place your code here."
   ;; Make executable each script
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
  ;;; Abbreviations
-  (setq-default abbrev-mode t)
- ;;;; Global keys
+  (setq    abbrev-mode t
+           save-abbrevs (quote silently)
+           )
+
+ ;;; Global keys
   (global-set-key [(insert)]             'save-buffer)
   (global-set-key [(control begin)]      'beginning-of-buffer)
   (global-set-key [(control  end)]       'end-of-buffer)
@@ -433,28 +436,96 @@ you should place your code here."
   (spacemacs/set-leader-keys "sy" 'vr/query)
   (spacemacs/set-leader-keys "su" 'vr/isearch-backward)
 
+  ;;; Ido
+  (setq    ido-everywhere t
+           ido-file-extensions-order
+           (quote
+            ("*.tex" "*.bib" "*.c" "*.h" "*.py" "*.pyd" "*.md" "*.txt" "*.el" "*.rs"))
+           ido-show-dot-for-dired t
+           ido-use-filename-at-point (quote guess)
+           ido-use-virtual-buffers t
+           )
 
-  ;; Deft
-  (setq deft-extensions '("txt" "md" "markdown" "org")
-        deft-default-extension "txt"
-        deft-text-mode 'markdown-mode
-        deft-directory "~/Note/"
-        deft-recursive t
-        deft-use-filename-as-title t
-        deft-current-sort-method 'title
-        deft-auto-save-interval 30)
+  ;;; recentf
+  (setq    recentf-auto-cleanup 300
+           recentf-max-menu-items 30
+           recentf-save-file "~/.spacemacs.d/recentf"
+           )
 
-  ;; LaTeX
+  ;;; Compile
+  (setq    compilation-always-kill t
+           compilation-ask-about-save nil
+           compilation-auto-jump-to-first-error t
+           compilation-read-command nil
+           compilation-scroll-output (quote first-error)
+           )
+  ;; http://www.emacswiki.org/emacs/CompileCommand
+  ;;  (defun* get-closest-pathname (&optional (file "Makefile"))
+  ;;    "Determine the pathname of the first instance of FILE starting from the current directory towards root.
+  ;; This may not do the correct thing in presence of links. If it does not find FILE, then it shall return the name
+  ;; of FILE in the current directory, suitable for creation"
+  ;;    (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
+  ;;      (expand-file-name file
+  ;;                        (loop
+  ;;                         for d = default-directory then (expand-file-name ".." d)
+  ;;                         if (file-exists-p (expand-file-name file d))
+  ;;                         return d
+  ;;                         if (equal d root)
+  ;;                         return nil))))
+  
+  (defun my-compile ()
+    (interactive)
+    (compile compile-command))
+
+  ;; Compilation window should be small and disappear if there is no error
+  ;; from http://www.emacswiki.org/emacs/ModeCompile
+  (setq compilation-finish-functions 'compile-autoclose)
+  (defun compile-autoclose (buffer string)
+    (cond ((and (string-match "finished" string)
+                (not (string-match "TextLint" (buffer-string))))
+           (message "Build likely successful: closing window")
+           (run-with-timer 2 nil
+                           'delete-window
+                           (get-buffer-window buffer t)))
+          (t
+           (message "Compilation exited abnormally: %s" string))))
+
+
+  ;;; Deft
+  (setq    deft-extensions '("txt" "md" "markdown" "org")
+           deft-default-extension "txt"
+           deft-text-mode 'markdown-mode
+           deft-directory "~/Note/"
+           deft-recursive t
+           deft-use-filename-as-title t
+           deft-current-sort-method 'title
+           deft-auto-save-interval 30
+           )
+
+  ;;; Desktop
+  (setq    desktop-lazy-idle-delay 0
+           desktop-path "~/.emacs.d/.cache/"
+           desktop-save t
+           desktop-save-mode t
+           )
+
+;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex) 
   (setq    TeX-arg-right-insert-p t
-           LaTeX-electric-left-right-brace t)
+           LaTeX-indent-level 0
+           TeX-electric-math (quote ("$" . "$"))
+           TeX-PDF-mode t
+           TeX-save-query nil
+           TeX-electric-sub-and-superscript t
+           TeX-shell "/bin/bash"
+           LaTeX-electric-left-right-brace t
+           )
   (define-key LaTeX-mode-map [(f9)]    'TeX-view)
   (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
-  (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
-  (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
+  ;; Turn on auto-fill-mode for BibTeX and LaTeX
+  (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
     (cond
      (mark-active
@@ -475,17 +546,13 @@ you should place your code here."
   ;;    ;; Math mode for LaTex
   ;;    (LaTeX-math-mode)
   ;;    )
- ;;; Latex-extra
+
+  ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
-  ;; Turn on auto-fill-mode for BibTeX and LaTeX
-  (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
-  ;;
-  ;; RefTeX
-  ;; PDF mode for latex
-  (setq-default TeX-PDF-mode t)
-  ;;   If you want to make AUC TeX aware of style files and multi-file
-  ;;   documents right away, insert the following in your `.emacs' file.
-  (setq TeX-save-query nil) ;;autosave before compiling
+  (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
+  (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
+
+;;; RefTeX
   (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
   (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
   (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
@@ -497,32 +564,52 @@ you should place your code here."
                  cite
                (concat "~" cite)))))
   ;; Make RefTeX faster
-  (setq reftex-enable-partial-scans t)
-  (setq reftex-save-parse-info t)
-  (setq reftex-use-multiple-selection-buffers t)
-  (setq reftex-plug-into-AUCTeX t)
-  (setq reftex-bibpath-environment-variables  '("~/Articoli/BibInput/"))
-  (setq reftex-file-extensions '(("nw" "tex" ".tex" ".ltx") ("bib" ".bib")))
-  (setq reftex-cite-prompt-optional-args nil)
-  (setq reftex-cite-cleanup-optional-args t)
-  (setq reftex-label-alist
-        (quote (
-                ("algorithm"   ?a "algorithm:"      "~\\ref{%s}" nil ("Algorithm" "Algorithms" "Algoritmo" "Alg."))
-                ("problem"     ?b "problem:"        "~\\ref{%s}" nil ("Prob." "Problem" "Problems" "Problema"))
-                ("claim"       ?c "claim:"          "~\\ref{%s}" nil ("Claim" "Claims" "Asserzione"))
-                ("definition"  ?d "definition:"     "~\\ref{%s}" nil ("Def." "Definition" "Definizione"))
-                ("exercise"    ?e "exercise:"       "~\\ref{%s}" nil ("Exercise" "Esercizio"))
-                ("program"     ?g "program:"        "~\\ref{%s}" nil ("Prog." "Program" "Programma"))
-                ("theorem"     ?h "theorem:"        "~\\ref{%s}" nil ("Thm" "Theorem" "Teorema"))
-                ("remark"      ?k "remark:"         "~\\ref{%s}" nil ("Remark" "Nota"))
-                ("lemma"       ?l "lemma:"          "~\\ref{%s}" nil ("Lemma" "Lemmas" "Lemmata"))
-                ("observation" ?o "observation:"    "~\\ref{%s}" nil ("Observation" "Observations" "Obs." "Osservazione"))
-                ("proposition" ?p "proposition:"    "~\\ref{%s}" nil ("Prop." "Proposition"  "Propositions" "Proposizione"))
-                ("corollary"   ?r "corollary:"      "~\\ref{%s}" nil ("Cor." "Corollary" "Corollaries" "Corollario"))
-                ("example"     ?x "example:"        "~\\ref{%s}" nil ("Example" "Es." "Esempio"))
-                )))
-  (setq TeX-view-program-selection '((output-pdf "Evince")))
-  (setq TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o")))
+  (setq reftex-enable-partial-scans t
+        reftex-plug-into-AUCTeX t
+        reftex-bibpath-environment-variables  '("~/Articoli/BibInput/")
+        reftex-file-extensions '(("nw" "tex" ".tex" ".ltx") ("bib" ".bib"))
+        reftex-cite-prompt-optional-args nil
+        reftex-cite-cleanup-optional-args t
+        reftex-ref-style-alist (quote
+                                (("Default" t
+                                  (("\\ref" 13)))
+                                 ("Varioref" "varioref"
+                                  (("\\vref" 118)
+                                   ("\\vpageref" 103)
+                                   ("\\Vref" 86)
+                                   ("\\Ref" 82)))
+                                 ("Fancyref" "fancyref"
+                                  (("\\fref" 102)
+                                   ("\\Fref" 70)))
+                                 ("Hyperref" "hyperref"
+                                  (("\\autoref" 97)
+                                   ("\\autopageref" 117)))
+                                 ("Cleveref" "cleveref"
+                                  (("\\cref" 99)
+                                   ("\\Cref" 67)
+                                   ("\\cpageref" 100)
+                                   ("\\Cpageref" 68)))))
+        reftex-save-parse-info t
+        reftex-use-multiple-selection-buffers t
+        reftex-label-alist (quote (
+                                   ("algorithm"   ?a "algorithm:"      "~\\ref{%s}" nil ("Algorithm" "Algorithms" "Algoritmo" "Alg."))
+                                   ("problem"     ?b "problem:"        "~\\ref{%s}" nil ("Prob." "Problem" "Problems" "Problema"))
+                                   ("claim"       ?c "claim:"          "~\\ref{%s}" nil ("Claim" "Claims" "Asserzione"))
+                                   ("definition"  ?d "definition:"     "~\\ref{%s}" nil ("Def." "Definition" "Definizione"))
+                                   ("exercise"    ?e "exercise:"       "~\\ref{%s}" nil ("Exercise" "Esercizio"))
+                                   ("program"     ?g "program:"        "~\\ref{%s}" nil ("Prog." "Program" "Programma"))
+                                   ("theorem"     ?h "theorem:"        "~\\ref{%s}" nil ("Thm" "Theorem" "Teorema"))
+                                   ("remark"      ?k "remark:"         "~\\ref{%s}" nil ("Remark" "Nota"))
+                                   ("lemma"       ?l "lemma:"          "~\\ref{%s}" nil ("Lemma" "Lemmas" "Lemmata"))
+                                   ("observation" ?o "observation:"    "~\\ref{%s}" nil ("Observation" "Observations" "Obs." "Osservazione"))
+                                   ("proposition" ?p "proposition:"    "~\\ref{%s}" nil ("Prop." "Proposition"  "Propositions" "Proposizione"))
+                                   ("corollary"   ?r "corollary:"      "~\\ref{%s}" nil ("Cor." "Corollary" "Corollaries" "Corollario"))
+                                   ("example"     ?x "example:"        "~\\ref{%s}" nil ("Example" "Es." "Esempio"))
+                                   ))
+        
+        TeX-view-program-selection '((output-pdf "Evince"))
+        TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o"))
+        )
   (defun LaTeX-view ()
     "Run the View command from the toolbar. Automagicly inhibits
  the confirmation garbage."
@@ -533,13 +620,6 @@ you should place your code here."
       (setq TeX-command-list (list entry))
       (TeX-command-master "View")))
   ;; save a file and compile it with latex
-  (defun save-and-latex-file ()
-    "Save and latex file"
-    (interactive)
-    (TeX-normal-mode)
-    (TeX-save-document (TeX-master-file))
-    (compile compile-command)
-    )
   (defun tex-smart-period ()
     "Smart \".\" key: insert \".\n\".
  If the period key is pressed a second time, \".\n\" is removed and replaced by the period."
@@ -557,40 +637,14 @@ you should place your code here."
         (delete-horizontal-space)
         (insert ".\n"))))
 
-  ;; Compilation window should be small and disappear if there is no error
-  ;; from http://www.emacswiki.org/emacs/ModeCompile
-  (setq compilation-finish-functions 'compile-autoclose)
-  (defun compile-autoclose (buffer string)
-    (cond ((and (string-match "finished" string)
-                (not (string-match "TextLint" (buffer-string))))
-           (message "Build likely successful: closing window")
-           (run-with-timer 2 nil
-                           'delete-window
-                           (get-buffer-window buffer t)))
-          (t
-           (message "Compilation exited abnormally: %s" string))))
-
-
- ;;; Compile
- ;;; http://www.emacswiki.org/emacs/CompileCommand
-  (defun* get-closest-pathname (&optional (file "Makefile"))
-    "Determine the pathname of the first instance of FILE starting from the current directory towards root.
- This may not do the correct thing in presence of links. If it does not find FILE, then it shall return the name
- of FILE in the current directory, suitable for creation"
-    (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
-      (expand-file-name file
-                        (loop
-                         for d = default-directory then (expand-file-name ".." d)
-                         if (file-exists-p (expand-file-name file d))
-                         return d
-                         if (equal d root)
-                         return nil))))
-  
-  (defun my-compile ()
-    (interactive)
-    (compile compile-command))
-
+;;; CDlatex
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  (setq    cdlatex-simplify-sub-super-scripts nil
+           )
   )
+
+
+
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -599,27 +653,13 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(LaTeX-indent-level 0)
- '(TeX-electric-math (quote ("$" . "$")))
- '(TeX-electric-sub-and-superscript t)
- '(TeX-shell "/bin/bash")
  '(aggressive-indent-excluded-modes
    (quote
     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
- '(cdlatex-simplify-sub-super-scripts nil)
- '(compilation-always-kill t)
- '(compilation-ask-about-save nil)
- '(compilation-auto-jump-to-first-error t)
- '(compilation-read-command nil)
- '(compilation-scroll-output (quote first-error))
  '(cua-enable-cua-keys t)
  '(cua-mode t nil (cua-base))
  '(cursor-in-non-selected-windows nil)
  '(delete-old-versions t)
- '(desktop-lazy-idle-delay 0)
- '(desktop-path (quote ("/home/gianluca/.emacs.d/.cache/")))
- '(desktop-save t)
- '(desktop-save-mode t)
  '(display-line-numbers t)
  '(electric-layout-mode t)
  '(fill-column 120)
@@ -627,13 +667,6 @@ you should place your code here."
  '(global-prettify-symbols-mode t)
  '(global-subword-mode t)
  '(global-visual-line-mode t)
- '(ido-everywhere t)
- '(ido-file-extensions-order
-   (quote
-    ("*.tex" "*.bib" "*.c" "*.h" "*.py" "*.pyd" "*.md" "*.txt" "*.el" "*.rs")))
- '(ido-show-dot-for-dired t)
- '(ido-use-filename-at-point (quote guess))
- '(ido-use-virtual-buffers t)
  '(ispell-help-in-bufferp (quote electric))
  '(ispell-silently-savep t)
  '(ivy-count-format "(%d/%d) ")
@@ -644,11 +677,7 @@ you should place your code here."
     (sql-indent swiper cdlatex treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
  '(paradox-github-token t)
  '(read-quoted-char-radix 10)
- '(recentf-auto-cleanup 300)
- '(recentf-max-menu-items 30)
- '(recentf-save-file "/home/gianluca/.spacemacs.d/recentf")
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
- '(save-abbrevs (quote silently))
  '(tab-always-indent (quote complete))
  '(tab-width 4)
  '(which-function-mode t)
