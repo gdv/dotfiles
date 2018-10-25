@@ -444,6 +444,11 @@ you should place your code here."
            ido-show-dot-for-dired t
            ido-use-filename-at-point (quote guess)
            ido-use-virtual-buffers t
+           ido-create-new-buffer (quote always)
+           ido-ignore-files (quote
+                             ("\\`CVS/"
+                              "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./"
+                              "\\.aux$"))
            )
 
   ;;; recentf
@@ -491,7 +496,7 @@ you should place your code here."
            (message "Compilation exited abnormally: %s" string))))
 
 
-  ;;; Deft
+;;; Deft
   (setq    deft-extensions '("txt" "md" "markdown" "org")
            deft-default-extension "txt"
            deft-text-mode 'markdown-mode
@@ -502,14 +507,14 @@ you should place your code here."
            deft-auto-save-interval 30
            )
 
-  ;;; Desktop
+;;; Desktop
   (setq    desktop-lazy-idle-delay 0
            desktop-path "~/.emacs.d/.cache/"
            desktop-save t
            desktop-save-mode t
            )
 
-;;; LaTeX
+;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
@@ -522,9 +527,9 @@ you should place your code here."
            TeX-shell "/bin/bash"
            LaTeX-electric-left-right-brace t
            )
-  (define-key LaTeX-mode-map [(f9)]    'TeX-view)
-  (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
-  ;; Turn on auto-fill-mode for BibTeX and LaTeX
+;;   (define-key LaTeX-mode-map [(f9)]    'TeX-view)
+;;   (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
+;;   ;; Turn on auto-fill-mode for BibTeX and LaTeX
   (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
     (cond
@@ -536,16 +541,16 @@ you should place your code here."
      (t
       ad-do-it)))
   (put 'TeX-insert-quote 'delete-selection nil)
-  ;;  (defun my-latex-mode-init ()
-  ;;    ;; AUCTeX configuration
-  ;;    (auto-revert-mode)
-  ;;    (TeX-source-correlate-mode)
-  ;;    ;;Abbreviations
-  ;;    (setq local-abbrev-table latex-mode-abbrev-table)
-  ;;    ;; Smart quotes
-  ;;    ;; Math mode for LaTex
-  ;;    (LaTeX-math-mode)
-  ;;    )
+   (defun my-latex-mode-init ()
+     ;; ;; AUCTeX configuration
+     ;; (auto-revert-mode)
+     ;; (TeX-source-correlate-mode)
+     ;; ;;Abbreviations
+     ;; (setq local-abbrev-table latex-mode-abbrev-table)
+     ;; ;; Smart quotes
+     ;; ;; Math mode for LaTex
+     ;; (LaTeX-math-mode)
+     )
 
   ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
@@ -606,7 +611,7 @@ you should place your code here."
                                    ("corollary"   ?r "corollary:"      "~\\ref{%s}" nil ("Cor." "Corollary" "Corollaries" "Corollario"))
                                    ("example"     ?x "example:"        "~\\ref{%s}" nil ("Example" "Es." "Esempio"))
                                    ))
-        
+
         TeX-view-program-selection '((output-pdf "Evince"))
         TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o"))
         )
