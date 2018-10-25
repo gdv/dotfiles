@@ -527,8 +527,6 @@ you should place your code here."
            TeX-shell "/bin/bash"
            LaTeX-electric-left-right-brace t
            )
-;;   (define-key LaTeX-mode-map [(f9)]    'TeX-view)
-;;   (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
 ;;   ;; Turn on auto-fill-mode for BibTeX and LaTeX
   (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
@@ -543,19 +541,16 @@ you should place your code here."
   (put 'TeX-insert-quote 'delete-selection nil)
    (defun my-latex-mode-init ()
      ;; ;; AUCTeX configuration
-     ;; (auto-revert-mode)
-     ;; (TeX-source-correlate-mode)
      ;; ;;Abbreviations
      ;; (setq local-abbrev-table latex-mode-abbrev-table)
-     ;; ;; Smart quotes
-     ;; ;; Math mode for LaTex
-     ;; (LaTeX-math-mode)
+     (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
+     (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
+     (define-key LaTeX-mode-map [(f9)]    'TeX-view)
+     (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
      )
 
   ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
-  (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
-  (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
 
 ;;; RefTeX
   (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
