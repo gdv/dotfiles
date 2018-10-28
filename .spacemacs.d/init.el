@@ -514,10 +514,8 @@ you should place your code here."
 ;;; Desktop
   (setq    desktop-lazy-idle-delay 0
            desktop-path "~/.emacs.d/.cache/"
-           desktop-save t
-           desktop-save-mode t
            )
-
+  (desktop-save-mode 1)
 ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
