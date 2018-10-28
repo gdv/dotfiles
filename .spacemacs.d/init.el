@@ -379,6 +379,7 @@ you should place your code here."
   (global-set-key [(control s)]          'save-buffer)
   (global-set-key [(control p)] 'ido-switch-buffer)
   (global-set-key [(control o)] 'ido-find-file)
+  (global-set-key [(control z)] 'undo)
   ;; Edit init.el with hotkey
   (defun init-imenu (p)
     (interactive "P")
