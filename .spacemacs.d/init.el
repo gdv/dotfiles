@@ -357,9 +357,9 @@ you should place your code here."
   ;; Make executable each script
   (add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
  ;;; Abbreviations
-  (setq    abbrev-mode t
-           save-abbrevs (quote silently)
+  (setq    save-abbrevs (quote silently)
            )
+  (set-default 'abbrev-mode t)
 
  ;;; Global keys
   (global-set-key [(insert)]             'save-buffer)
@@ -544,7 +544,7 @@ you should place your code here."
    (defun my-latex-mode-init ()
      ;; ;; AUCTeX configuration
      ;; ;;Abbreviations
-     ;; (setq local-abbrev-table latex-mode-abbrev-table)
+     (setq local-abbrev-table latex-mode-abbrev-table)
      (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
      (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
      (define-key LaTeX-mode-map [(f9)]    'TeX-view)
