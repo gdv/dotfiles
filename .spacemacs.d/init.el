@@ -441,15 +441,18 @@ you should place your code here."
   (setq    ido-everywhere t
            ido-file-extensions-order
            (quote
-            ("*.tex" "*.bib" "*.c" "*.h" "*.py" "*.pyd" "*.md" "*.txt" "*.el" "*.rs"))
+            (".tex" ".bib" ".c" ".h" ".py" "*.txt" "*.el" "*.go"))
            ido-show-dot-for-dired t
+           ido-enable-flex-matching t
            ido-use-filename-at-point (quote guess)
            ido-use-virtual-buffers t
+           ido-ignore-extensions t
            ido-create-new-buffer (quote always)
            ido-ignore-files (quote
                              ("\\`CVS/"
                               "\\`#" "\\`.#" "\\`\\.\\./" "\\`\\./"
-                              "\\.aux$"))
+                              "\\.aux$"
+                              "\\.latexmk$"))
            )
 
   ;;; recentf
@@ -657,6 +660,9 @@ you should place your code here."
  '(aggressive-indent-excluded-modes
    (quote
     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
+ '(completion-ignored-extensions
+   (quote
+    (".o" "~" ".bin" ".lbin" ".so" ".a" ".ln" ".blg" ".bbl" ".elc" ".lof" ".glo" ".idx" ".lot" ".svn/" ".hg/" ".git/" ".bzr/" "CVS/" "_darcs/" "_MTN/" ".fmt" ".tfm" ".class" ".fas" ".lib" ".mem" ".x86f" ".sparcf" ".dfsl" ".pfsl" ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl" ".fasl" ".ufsl" ".fsl" ".dxl" ".lo" ".la" ".gmo" ".mo" ".toc" ".aux" ".cp" ".fn" ".ky" ".pg" ".tp" ".vr" ".cps" ".fns" ".kys" ".pgs" ".tps" ".vrs" ".pyc" ".pyo" ".latexmk" ".aux")))
  '(cua-enable-cua-keys t)
  '(cua-mode t nil (cua-base))
  '(cursor-in-non-selected-windows nil)
