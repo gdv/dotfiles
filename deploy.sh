@@ -14,6 +14,7 @@ for f in     .bash_login \
              .bash_logout \
              .bash_profile \
              .bashrc \
+             .byobu \
              .spacemacs.d \
              .vimrc
 do
