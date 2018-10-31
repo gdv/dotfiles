@@ -2,3 +2,6 @@
 /.byobu/.ssh-agent
 /.byobu/.tmux.conf
 /.byobu/.welcome-displayed
+/.spacemacs.d/.emacs.desktop
+/.spacemacs.d/.ido.last
+/.spacemacs.d/recentf
