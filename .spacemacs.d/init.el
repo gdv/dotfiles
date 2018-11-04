@@ -562,11 +562,6 @@ you should place your code here."
            deft-auto-save-interval 30
            )
 
-;;; Desktop
-  (setq    desktop-lazy-idle-delay 0
-           desktop-path "~/.emacs.d/.cache/"
-           )
-  (desktop-save-mode 1)
 ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
@@ -694,6 +689,13 @@ you should place your code here."
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (setq    cdlatex-simplify-sub-super-scripts nil
            )
+
+;;; Desktop
+  (setq    desktop-lazy-idle-delay 0
+           desktop-path "~/.emacs.d/.cache/"
+           )
+  (desktop-save-mode 1)
+  (desktop-read)
   )
 
 
