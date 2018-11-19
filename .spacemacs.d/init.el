@@ -695,6 +695,7 @@ you should place your code here."
 ;;; Desktop
   (setq    desktop-lazy-idle-delay 0
            desktop-path "~/.emacs.d/.cache/"
+           desktop-base-file-name "emacs.desktop"
            )
   (desktop-save-mode 1)
   (desktop-read)
