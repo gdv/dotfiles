@@ -562,7 +562,7 @@ you should place your code here."
            deft-auto-save-interval 30
            )
 
-;; ;;; LaTeX
+  ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
@@ -587,15 +587,16 @@ you should place your code here."
      (t
       ad-do-it)))
   (put 'TeX-insert-quote 'delete-selection nil)
-   (defun my-latex-mode-init ()
-     ;; ;; AUCTeX configuration
-     ;; ;;Abbreviations
-     (setq local-abbrev-table latex-mode-abbrev-table)
-     (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
-     (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
-     (define-key LaTeX-mode-map [(f9)]    'TeX-view)
-     (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
-     )
+  (defun my-latex-mode-init ()
+    ;; ;; AUCTeX configuration
+    ;; ;;Abbreviations
+    (setq local-abbrev-table latex-mode-abbrev-table)
+    (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
+    (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
+    (define-key LaTeX-mode-map [(f9)]    'TeX-view)
+    (define-key LaTeX-mode-map [(f12)]    'latex/build)
+    (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
+    )
 
   ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
