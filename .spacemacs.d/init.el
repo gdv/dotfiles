@@ -453,20 +453,10 @@ you should place your code here."
              ".bin"
              ".lbin"
              ".so"
-             ".a"
              ".ln"
-             ".blg"
-             ".bbl"
              ".elc"
-             ".lof"
-             ".glo"
-             ".idx"
              ".lot"
-             ".svn/"
-             ".hg/"
-             ".git/"
-             ".bzr/"
-             "CVS/"
+             ".svn/" ".hg/" ".git/" ".bzr/" "CVS/"
              ".fmt"
              ".tfm"
              ".class"
@@ -480,11 +470,9 @@ you should place your code here."
              ".d64fsl" ".p64fsl" ".lx64fsl" ".lx32fsl" ".dx64fsl" ".dx32fsl" ".fx64fsl" ".fx32fsl" ".sx64fsl" ".sx32fsl" ".wx64fsl" ".wx32fsl"
              ".fasl" ".ufsl" ".fsl"
              ".dxl"
-             ".lo"
-             ".la"
+             ".a" ".lo" ".la"
              ".gmo"
              ".mo"
-             ".toc"
              ".fls"
              ".cp"
              ".fn"
@@ -498,10 +486,9 @@ you should place your code here."
              ".pgs"
              ".tps"
              ".vrs"
-             ".pyc"
-             ".pyo"
-             ".fdb_latexmk"
-             ".aux"))
+             ".pyc" ".pyo"
+             ".lof" ".glo" ".idx" ".blg" ".bbl" ".toc" ".fdb_latexmk" ".aux"
+             ))
            )
 
   ;;; recentf
@@ -686,8 +673,11 @@ you should place your code here."
 
 ;;; CDlatex
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
-  (setq    cdlatex-simplify-sub-super-scripts nil
-           )
+  (setq cdlatex-simplify-sub-super-scripts nil
+        cdlatex-command-alist
+        '(("lem" "Insert lemma env"   "" cdlatex-environment ("lemma") t nil)
+          ("thm" "Insert theorem env" "" cdlatex-environment ("theorem") t nil))
+        )
 ;;; Counsel/Ivy/Swiper
   (setq counsel-find-file-at-point t
         counsel-find-file-ignore-regexp        "\\(?:\\.\\(?:aux\\|b\\(?:bl\\|in\\|lg\\|zr/\\)\\|c\\(?:lass\\|ps?\\)\\|d\\(?:\\(?:64fs\\|fs\\|x\\(?:\\(?:32\\|64\\)fs\\)?\\)l\\)\\|elc\\|f\\(?:asl?\\|mt\\|ns?\\|\\(?:x\\(?:\\(?:32\\|64\\)f\\)\\)?sl\\)\\|g\\(?:it/\\|[lm]o\\)\\|hg/\\|idx\\|kys?\\|l\\(?:bin\\|ib\\|o[ft]\\|x\\(?:\\(?:32\\|64\\)fsl\\)\\|[ano]\\)\\|m\\(?:em\\|o\\)\\|p\\(?:64fsl\\|fsl\\|gs?\\|y[co]\\)\\|s\\(?:o\\|parcf\\|vn/\\|x\\(?:\\(?:32\\|64\\)fsl\\)\\)\\|t\\(?:fm\\|oc\\|ps?\\)\\|ufsl\\|vrs?\\|wx\\(?:\\(?:32\\|64\\)fsl\\)\\|x86f\\|[ao]\\)\\|CVS/\\|_\\(?:\\(?:MTN\\|darcs\\)/\\)\\|~\\)")
