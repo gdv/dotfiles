@@ -551,15 +551,14 @@ you should place your code here."
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
-  (setq    TeX-arg-right-insert-p t
-           LaTeX-indent-level 0
-           TeX-electric-math (quote ("$" . "$"))
-           TeX-PDF-mode t
-           TeX-save-query nil
-           TeX-electric-sub-and-superscript t
-           TeX-shell "/bin/bash"
-           LaTeX-electric-left-right-brace t
-           )
+  (setq
+   LaTeX-indent-level 0
+   TeX-PDF-mode t
+   TeX-save-query nil
+   TeX-electric-sub-and-superscript t
+   TeX-shell "/bin/bash"
+   ;; LaTeX-electric-left-right-brace t
+   )
   ;;   ;; Turn on auto-fill-mode for BibTeX and LaTeX
   (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
@@ -571,7 +570,7 @@ you should place your code here."
       (forward-char (length TeX-open-quote)))
      (t
       ad-do-it)))
-  (put 'TeX-insert-quote 'delete-selection nil)
+                                        ;  (put 'TeX-insert-quote 'delete-selection nil)
   (defun my-latex-mode-init ()
     ;; ;; AUCTeX configuration
     ;; ;;Abbreviations
@@ -579,10 +578,9 @@ you should place your code here."
     (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
     (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
     (define-key LaTeX-mode-map [(f9)]    'TeX-view)
-    (define-key LaTeX-mode-map [(f12)]    'latex/build)
+    (define-key LaTeX-mode-map [(f12)]   'latex/build)
     (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
     )
-
   ;;; Latex-extra
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
 
