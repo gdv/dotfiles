@@ -546,7 +546,7 @@ you should place your code here."
            deft-current-sort-method 'title
            deft-auto-save-interval 30
            )
-
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)
   ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
