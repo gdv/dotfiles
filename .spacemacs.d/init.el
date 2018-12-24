@@ -327,8 +327,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
                                                 :size 14
                                                 :weight normal
                                                 :width normal
-                                                :powerline-scale 1.1)))
-  )
+                                                :powerline-scale 1.1))))
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -344,12 +343,6 @@ you should place your code here."
                (concat "Emacs " (file-name-directory buffer-file-name) "%b"))
             (buffer-name)
             )))
-  ;; (cua-mode 1)
-  ;; (setq  cua-enable-cua-keys t
-  ;;        cua-overwrite-cursor-color "yellow"
-  ;;        cua-prefix-override-inhibit-delay 0.4
-  ;;        cua-read-only-cursor-color "green"
-  ;;        )
 
 
   ;; Make executable each script
@@ -504,20 +497,7 @@ you should place your code here."
            compilation-read-command nil
            compilation-scroll-output (quote first-error)
            )
-  ;; http://www.emacswiki.org/emacs/CompileCommand
-  ;;  (defun* get-closest-pathname (&optional (file "Makefile"))
-  ;;    "Determine the pathname of the first instance of FILE starting from the current directory towards root.
-  ;; This may not do the correct thing in presence of links. If it does not find FILE, then it shall return the name
-  ;; of FILE in the current directory, suitable for creation"
-  ;;    (let ((root (expand-file-name "/"))) ; the win32 builds should translate this correctly
-  ;;      (expand-file-name file
-  ;;                        (loop
-  ;;                         for d = default-directory then (expand-file-name ".." d)
-  ;;                         if (file-exists-p (expand-file-name file d))
-  ;;                         return d
-  ;;                         if (equal d root)
-  ;;                         return nil))))
-  
+
   (defun my-compile ()
     (interactive)
     (compile compile-command))
@@ -546,7 +526,7 @@ you should place your code here."
            deft-current-sort-method 'title
            deft-auto-save-interval 30
            )
-  (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode)
+  (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
   ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
@@ -687,9 +667,7 @@ you should place your code here."
            )
   (desktop-save-mode 1)
   (desktop-read)
-  )
-
-
+)
 
 
 ;; Do not write anything past this comment. This is where Emacs will
