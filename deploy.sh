@@ -14,6 +14,7 @@ for f in     .bash_login \
              .bash_profile \
              .bashrc \
              .byobu \
+             .condarc \
              .spacemacs.d \
              .vimrc
 do
@@ -23,3 +24,18 @@ done
 
 mkdir -p ~/.vim/spell
 cd ~/.vim/spell/ && test -f it.utf-8.spl || wget http://ftp.vim.org/vim/runtime/spell/it.utf-8.spl
+
+# Enable bash-it plugins &C
+source ~/.bashrc
+for x in bash-it conda defaults docker docker-compose git makefile ssh tmux
+do
+    bash-it enable completion $x
+done
+for x in git jekyll latex hub tmux
+do
+    bash-it enable plugin $x
+done
+for x in curl docker docker-compose general git systemd tmux
+do
+    bash-it enable alias $x
+done
