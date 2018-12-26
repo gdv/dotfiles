@@ -34,9 +34,6 @@ export SCM_CHECK=true
 export SCM_GIT_SHOW_DETAILS=true
 
 
-# Load Bash It
-source $BASH_IT/bash_it.sh
-
 # Anaconda
 export PATH=~/.miniconda/bin:${PATH}
 
@@ -154,3 +151,6 @@ export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
 
 # Pandoc
 eval "$(pandoc --bash-completion)"
+
+# Load Bash It
+source $BASH_IT/bash_it.sh
