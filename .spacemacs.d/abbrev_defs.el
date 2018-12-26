@@ -1277,10 +1277,6 @@
     ("lra" "\\leftrightarrow" nil 0)
     ("mbb" "mathbb" nil 0)
     ("ngdv" "\\notaestesa{GDV}{" nil 3)
-    ("nppp" "definition}
-
-" nil 0)
-    ("prova" "dddd" nil 0)
     ("ribr" "\\right\\}" nil 0)
     ("rir" "\\right\\rangle" nil 0)
     ("rle" "\\rangle" nil 0)
@@ -1293,9 +1289,6 @@
     ("subs" "\\subset" nil 0)
     ("supe" "\\supseteq" nil 0)
     ("sups" "\\supset" nil 0)
-    ("ttttt" "definition}
-
-" nil 0)
     ("v0" "v_{0}" nil 0)
     ("v1" "v_{1}" nil 3)
     ("v2" "v_{2}" nil 2)

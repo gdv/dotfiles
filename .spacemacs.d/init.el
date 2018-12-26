@@ -651,6 +651,12 @@ you should place your code here."
 
 ;;; CDlatex
   (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  (defun my-after-load-cdlatex ()
+    (define-key cdlatex-mode-map "_" nil)
+    (define-key cdlatex-mode-map "$" nil)
+    (define-key cdlatex-mode-map "(" nil)
+    t)
+  (eval-after-load "cdlatex" '(my-after-load-cdlatex))
   (setq cdlatex-simplify-sub-super-scripts nil
         cdlatex-command-alist
         '(("lem" "Insert lemma env"   "" cdlatex-environment ("lemma") t nil)
