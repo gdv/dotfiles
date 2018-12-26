@@ -7,7 +7,8 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 
 
-dir=$(dirname "$0")
+dir=$(dirname $(readlink -f $0))
+echo "Linking from $dir"
 cd
 for f in     .bash_login \
              .bash_logout \
@@ -18,8 +19,9 @@ for f in     .bash_login \
              .spacemacs.d \
              .vimrc
 do
-    test -e ~/"$f" && rm -fr ~/"$f"
-    ln -s "$dir"/"$f" ~/"$f"
+    test -f ~/"$f" && rm -f  ~/"$f"
+    test -d ~/"$f" && rm -fr ~/"$f"
+    test -h ~/"$f" || ln -s "$dir"/"$f" ~/"$f"
 done
 
 mkdir -p ~/.vim/spell
