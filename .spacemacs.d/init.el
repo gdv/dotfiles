@@ -68,7 +68,6 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     cdlatex
      compile
      latex-extra
      session
