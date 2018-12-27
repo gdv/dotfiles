@@ -345,6 +345,7 @@ you should place your code here."
                (concat "Emacs " (file-name-directory buffer-file-name) "%b"))
             (buffer-name)
             )))
+  (remove-hook 'emacs-lisp-mode-hook 'auto-compile-mode)
 
 
   ;; Make executable each script
