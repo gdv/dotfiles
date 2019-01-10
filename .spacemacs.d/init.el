@@ -355,7 +355,8 @@ you should place your code here."
   (setq    save-abbrevs (quote silently)
            )
   (set-default 'abbrev-mode t)
-
+  (add-hook 'prog-mode-hook #'auto-fill-mode)
+  (add-hook 'text-mode-hook #'auto-fill-mode)
  ;;; Global keys
   (global-set-key [(insert)]             'save-buffer)
   (global-set-key [(control begin)]      'beginning-of-buffer)
@@ -531,6 +532,7 @@ you should place your code here."
            deft-auto-save-interval 30
            )
   (add-to-list 'auto-mode-alist '("\\.txt\\'" . markdown-mode))
+
   ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
@@ -545,6 +547,7 @@ you should place your code here."
    )
   ;;   ;; Turn on auto-fill-mode for BibTeX and LaTeX
   (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
+  (add-hook 'latex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
     (cond
      (mark-active
@@ -566,7 +569,7 @@ you should place your code here."
     (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
     )
   ;;; Latex-extra
-  (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+  (add-hook 'latex-mode-hook #'latex-extra-mode)
 
 ;;; RefTeX
   (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
@@ -677,7 +680,7 @@ you should place your code here."
            )
   (desktop-save-mode 1)
   (desktop-read)
-)
+  )
 
 
 ;; Do not write anything past this comment. This is where Emacs will
