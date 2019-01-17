@@ -49,7 +49,8 @@ values."
      html
      ivy
      (latex :variables
-            latex-enable-auto-fill t)
+            latex-enable-auto-fill t
+            latex-enable-magic t)
      linux-defaults
      (markdown :variables
                markdown-command "pandoc --smart -f markdown -t html")
@@ -536,18 +537,17 @@ you should place your code here."
   ;; ;;; LaTeX
   (setenv "TEXINPUTS" (concat ".:~/texmf//:" (getenv "TEXINPUTS")))
   (setenv "BIBINPUTS" (concat ".:~/Articoli/BibInput:" (getenv "BIBINPUTS")))
-  (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
   (setq
    LaTeX-indent-level 0
    TeX-PDF-mode t
    TeX-save-query nil
    TeX-electric-sub-and-superscript t
+   LaTeX-electric-left-right-brace t
    TeX-shell "/bin/bash"
    ;; LaTeX-electric-left-right-brace t
    )
   ;;   ;; Turn on auto-fill-mode for BibTeX and LaTeX
   (add-hook 'bibtex-mode-hook 'turn-on-auto-fill)
-  (add-hook 'latex-mode-hook 'turn-on-auto-fill)
   (defadvice TeX-insert-quote (around wrap-region activate)
     (cond
      (mark-active
@@ -559,8 +559,7 @@ you should place your code here."
       ad-do-it)))
                                         ;  (put 'TeX-insert-quote 'delete-selection nil)
   (defun my-latex-mode-init ()
-    ;; ;; AUCTeX configuration
-    ;; ;;Abbreviations
+    (interactive)
     (setq local-abbrev-table latex-mode-abbrev-table)
     (define-key LaTeX-mode-map [(control prior)] 'latex/previous-section)
     (define-key LaTeX-mode-map [(control next)] 'latex/next-section)
@@ -568,8 +567,6 @@ you should place your code here."
     (define-key LaTeX-mode-map [(f12)]   'latex/build)
     (define-key LaTeX-mode-map (kbd ".") 'tex-smart-period)
     )
-  ;;; Latex-extra
-  (add-hook 'latex-mode-hook #'latex-extra-mode)
 
 ;;; RefTeX
   (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
@@ -657,7 +654,6 @@ you should place your code here."
         (insert ".\n"))))
 
 ;;; CDlatex
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (defun my-after-load-cdlatex ()
     (define-key cdlatex-mode-map "_" nil)
     (define-key cdlatex-mode-map "$" nil)
@@ -669,6 +665,10 @@ you should place your code here."
         '(("lem" "Insert lemma env"   "" cdlatex-environment ("lemma") t nil)
           ("thm" "Insert theorem env" "" cdlatex-environment ("theorem") t nil))
         )
+
+  (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
+  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+  (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
 ;;; Counsel/Ivy/Swiper
   (setq counsel-find-file-at-point t
         counsel-find-file-ignore-regexp        "\\(?:\\.\\(?:aux\\|b\\(?:bl\\|in\\|lg\\|zr/\\)\\|c\\(?:lass\\|ps?\\)\\|d\\(?:\\(?:64fs\\|fs\\|x\\(?:\\(?:32\\|64\\)fs\\)?\\)l\\)\\|elc\\|f\\(?:asl?\\|mt\\|ns?\\|\\(?:x\\(?:\\(?:32\\|64\\)f\\)\\)?sl\\)\\|g\\(?:it/\\|[lm]o\\)\\|hg/\\|idx\\|kys?\\|l\\(?:bin\\|ib\\|o[ft]\\|x\\(?:\\(?:32\\|64\\)fsl\\)\\|[ano]\\)\\|m\\(?:em\\|o\\)\\|p\\(?:64fsl\\|fsl\\|gs?\\|y[co]\\)\\|s\\(?:o\\|parcf\\|vn/\\|x\\(?:\\(?:32\\|64\\)fsl\\)\\)\\|t\\(?:fm\\|oc\\|ps?\\)\\|ufsl\\|vrs?\\|wx\\(?:\\(?:32\\|64\\)fsl\\)\\|x86f\\|[ao]\\)\\|CVS/\\|_\\(?:\\(?:MTN\\|darcs\\)/\\)\\|~\\)")
@@ -690,6 +690,7 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(TeX-arg-item-label-p t)
  '(aggressive-indent-excluded-modes
    (quote
     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
