@@ -667,7 +667,7 @@ you should place your code here."
         )
 
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
-  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+;  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
 ;;; Counsel/Ivy/Swiper
   (setq counsel-find-file-at-point t
