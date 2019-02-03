@@ -70,7 +70,7 @@ shopt -s globstar
 test -d ~/Documenti/AlgoLab || google-drive-ocamlfuse ~/Documenti/
 
 # added by Anaconda3 installer
-. /home/gianluca/.miniconda/etc/profile.d/conda.sh
+# . /home/gianluca/.miniconda/etc/profile.d/conda.sh  # commented out by conda initialize
 
 # Linuxbrew
 PATH="$HOME/.linuxbrew/bin:$PATH"
@@ -85,3 +85,19 @@ export BASH_IT=$HOME/.bash_it
 export BASH_IT_THEME='bobby'
 export BASH_IT_CUSTOM=~/Devel/dotfiles/bash
 source $BASH_IT/bash_it.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/gianluca/.miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/gianluca/.miniconda/etc/profile.d/conda.sh" ]; then
+        . "/home/gianluca/.miniconda/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/gianluca/.miniconda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
