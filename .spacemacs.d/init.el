@@ -542,7 +542,6 @@ you should place your code here."
    TeX-PDF-mode t
    TeX-save-query nil
    TeX-electric-sub-and-superscript t
-   LaTeX-electric-left-right-brace t
    TeX-shell "/bin/bash"
    ;; LaTeX-electric-left-right-brace t
    )
