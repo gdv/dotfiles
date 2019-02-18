@@ -6,4 +6,4 @@ channels:
 
 auto_update_conda: true
 show_channel_urls: true
-sat_solver: pycryptosat
+channel_priority: strict
