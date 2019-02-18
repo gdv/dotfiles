@@ -625,16 +625,6 @@ you should place your code here."
         TeX-view-program-selection '((output-pdf "Evince"))
         TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o"))
         )
-  (defun LaTeX-view ()
-    "Run the View command from the toolbar. Automagicly inhibits
- the confirmation garbage."
-    (interactive)
-    (let* ((entry (copy-sequence (assoc "View" TeX-command-list)))
-           TeX-command-list)
-      (rplaca (nthcdr 3 entry) nil)
-      (setq TeX-command-list (list entry))
-      (TeX-command-master "View")))
-  ;; save a file and compile it with latex
   (defun tex-smart-period ()
     "Smart \".\" key: insert \".\n\".
  If the period key is pressed a second time, \".\n\" is removed and replaced by the period."
@@ -653,17 +643,17 @@ you should place your code here."
         (insert ".\n"))))
 
 ;;; CDlatex
-  (defun my-after-load-cdlatex ()
-    (define-key cdlatex-mode-map "_" nil)
-    (define-key cdlatex-mode-map "$" nil)
-    (define-key cdlatex-mode-map "(" nil)
-    t)
-  (eval-after-load "cdlatex" '(my-after-load-cdlatex))
-  (setq cdlatex-simplify-sub-super-scripts nil
-        cdlatex-command-alist
-        '(("lem" "Insert lemma env"   "" cdlatex-environment ("lemma") t nil)
-          ("thm" "Insert theorem env" "" cdlatex-environment ("theorem") t nil))
-        )
+  ;; (defun my-after-load-cdlatex ()
+  ;;   (define-key cdlatex-mode-map "_" nil)
+  ;;   (define-key cdlatex-mode-map "$" nil)
+  ;;   (define-key cdlatex-mode-map "(" nil)
+  ;;   t)
+  ;; (eval-after-load "cdlatex" '(my-after-load-cdlatex))
+  ;; (setq cdlatex-simplify-sub-super-scripts nil
+  ;;       cdlatex-command-alist
+  ;;       '(("lem" "Insert lemma env"   "" cdlatex-environment ("lemma") t nil)
+  ;;         ("thm" "Insert theorem env" "" cdlatex-environment ("theorem") t nil))
+  ;;       )
 
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
 ;  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
@@ -711,7 +701,11 @@ you should place your code here."
  '(mouse-avoidance-mode (quote exile) nil (avoid))
  '(package-selected-packages
    (quote
-    (less-css-mode fuzzy company-statistics company-c-headers company-auctex company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data async sql-indent swiper cdlatex treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
+    (less-css-mode fuzzy company-statistics company-c-headers company-auctex
+                   company-anaconda company auto-yasnippet yasnippet ac-ispell
+                   auto-complete web-mode tagedit slim-mode scss-mode sass-mode
+                   pug-mode haml-mode emmet-mode company-web web-completion-data
+                   async sql-indent swiper treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
  '(paradox-github-token t)
  '(read-quoted-char-radix 10)
  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
