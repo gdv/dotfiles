@@ -69,14 +69,6 @@ shopt -s globstar
 # Mount Google Drive
 test -d ~/Documenti/AlgoLab || google-drive-ocamlfuse ~/Documenti/
 
-# added by Anaconda3 installer
-# . /home/gianluca/.miniconda/etc/profile.d/conda.sh  # commented out by conda initialize
-
-# Linuxbrew
-PATH="$HOME/.linuxbrew/bin:$PATH"
-export MANPATH="$(brew --prefix)/share/man:$MANPATH"
-export INFOPATH="$(brew --prefix)/share/info:$INFOPATH"
-
 # Pandoc
 eval "$(pandoc --bash-completion)"
 
