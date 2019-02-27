@@ -1,8 +1,8 @@
 channels:
   - http://conda.anaconda.org/gurobi
-  - defaults
-  - bioconda
   - conda-forge
+  - bioconda
+  - defaults
 
 auto_update_conda: true
 show_channel_urls: true
