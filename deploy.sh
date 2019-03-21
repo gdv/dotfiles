@@ -16,6 +16,7 @@ for f in     .bash_login \
              .bashrc \
              .byobu \
              .condarc \
+             .config/compton.conf \
              .spacemacs.d \
              .vimrc
 do
