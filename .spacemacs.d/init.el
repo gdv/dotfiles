@@ -622,7 +622,7 @@ you should place your code here."
                                    ("example"     ?x "example:"        "~\\ref{%s}" nil ("Example" "Es." "Esempio"))
                                    ))
 
-        TeX-view-program-selection '((output-pdf "Evince"))
+        TeX-view-program-selection '((output-pdf "Atril"))
         TeX-view-program-list '(("Atril" "atril --page-index=%(outpage) %o"))
         )
   (defun tex-smart-period ()
