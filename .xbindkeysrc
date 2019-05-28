@@ -32,7 +32,7 @@ KP_Next
 "wmctrl -xa terminal || mate-terminal "
 KP_Left
 
-"wmctrl -xa Slack || slack"
+"wmctrl -xa Zulip || zulip"
 KP_Begin
 
 "wmctrl -xa Hexchat || hexchat"
