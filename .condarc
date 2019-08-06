@@ -7,3 +7,4 @@ channels:
 auto_update_conda: true
 show_channel_urls: true
 channel_priority: strict
+changeps1: true
