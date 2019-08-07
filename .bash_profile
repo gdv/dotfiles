@@ -84,7 +84,7 @@ __conda_setup="$('/home/gianluca/.miniconda/bin/conda' 'shell.bash' 'hook' 2> /d
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/gianluca/.miniconda/etc/profile.d/conda.sh" ]; then
+    if [ -f "" ]; then
         . "/home/gianluca/.miniconda/etc/profile.d/conda.sh"
     else
         export PATH="/home/gianluca/.miniconda/bin:$PATH"
@@ -93,3 +93,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+conda activate py37
