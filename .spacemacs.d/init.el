@@ -77,6 +77,7 @@ values."
    '(
      compile
      latex-extra
+     snakemake-mode
      session
      )
    ;; A list of packages that cannot be updated.
