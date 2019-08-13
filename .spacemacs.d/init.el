@@ -326,15 +326,13 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (if (string= (system-name) "nuc6")
       (setq-default dotspacemacs-default-font '("DejaVu Sans Mono"
-                            :size 20
-                            :weight normal
-                            :width normal
-                            :powerline-scale 1.1))
-      (setq-default dotspacemacs-default-font '("DejaVu Sans Mono"
-                                                :size 14
+                                                :size 20
                                                 :weight normal
-                                                :width normal
-                                                :powerline-scale 1.1))))
+                                                :width normal))
+    (setq-default dotspacemacs-default-font '("DejaVu Sans Mono"
+                                              :size 14
+                                              :weight normal
+                                              :width normal))))
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
