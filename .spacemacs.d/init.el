@@ -48,10 +48,12 @@ values."
      git
      html
      ivy
+     json
      (latex :variables
             latex-enable-auto-fill t
             latex-enable-magic t)
      linux-defaults
+     lsp
      (markdown :variables
                markdown-command "pandoc --smart -f markdown -t html")
      pandoc
