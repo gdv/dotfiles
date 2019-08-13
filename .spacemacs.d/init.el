@@ -667,7 +667,6 @@ you should place your code here."
 
 ;;; Desktop
   (setq    desktop-lazy-idle-delay 0
-           desktop-path "~/.emacs.d/.cache/"
            desktop-base-file-name "emacs.desktop"
            )
   (desktop-save-mode 1)
@@ -677,45 +676,94 @@ you should place your code here."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(TeX-arg-item-label-p t)
- '(aggressive-indent-excluded-modes
-   (quote
-    (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
- '(cua-enable-cua-keys t)
- '(cua-mode t nil (cua-base))
- '(cursor-in-non-selected-windows nil)
- '(delete-old-versions t)
- '(display-line-numbers t)
- '(electric-layout-mode t)
- '(fill-column 120)
- '(global-aggressive-indent-mode t)
- '(global-prettify-symbols-mode t)
- '(global-subword-mode t)
- '(global-visual-line-mode t)
- '(ispell-help-in-bufferp (quote electric))
- '(ispell-silently-savep t)
- '(ivy-count-format "(%d/%d) ")
- '(kept-new-versions 16)
- '(mouse-avoidance-mode (quote exile) nil (avoid))
- '(package-selected-packages
-   (quote
-    (lv transient undo-tree packed f s less-css-mode fuzzy company-statistics company-c-headers company-auctex company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data async sql-indent swiper treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
- '(paradox-github-token t)
- '(read-quoted-char-radix 10)
- '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
- '(tab-always-indent (quote complete))
- '(tab-width 4)
- '(which-function-mode t)
- '(x-select-request-type (quote UTF8_STRING))
- '(yank-excluded-properties t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(TeX-arg-item-label-p t)
+;;  '(aggressive-indent-excluded-modes
+;;    (quote
+;;     (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
+;;  '(cua-enable-cua-keys t)
+;;  '(cua-mode t nil (cua-base))
+;;  '(cursor-in-non-selected-windows nil)
+;;  '(delete-old-versions t)
+;;  '(display-line-numbers t)
+;;  '(electric-layout-mode t)
+;;  '(fill-column 120)
+;;  '(global-aggressive-indent-mode t)
+;;  '(global-prettify-symbols-mode t)
+;;  '(global-subword-mode t)
+;;  '(global-visual-line-mode t)
+;;  '(ispell-help-in-bufferp (quote electric))
+;;  '(ispell-silently-savep t)
+;;  '(ivy-count-format "(%d/%d) ")
+;;  '(kept-new-versions 16)
+;;  '(mouse-avoidance-mode (quote exile) nil (avoid))
+;;  '(package-selected-packages
+;;    (quote
+;;     (lv transient undo-tree packed f s less-css-mode fuzzy company-statistics company-c-headers company-auctex company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data async sql-indent swiper treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
+;;  '(paradox-github-token t)
+;;  '(read-quoted-char-radix 10)
+;;  '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
+;;  '(tab-always-indent (quote complete))
+;;  '(tab-width 4)
+;;  '(which-function-mode t)
+;;  '(x-select-request-type (quote UTF8_STRING))
+;;  '(yank-excluded-properties t))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(TeX-arg-item-label-p t)
+   '(aggressive-indent-excluded-modes
+     (quote
+      (bibtex-mode cider-repl-mode coffee-mode comint-mode conf-mode Custom-mode diff-mode doc-view-mode dos-mode erc-mode jabber-chat-mode haml-mode haskell-mode image-mode makefile-mode makefile-gmake-mode minibuffer-inactive-mode netcmd-mode sass-mode slim-mode special-mode shell-mode snippet-mode eshell-mode tabulated-list-mode term-mode TeX-output-mode text-mode yaml-mode python-mode markdown-mode)))
+   '(cua-enable-cua-keys t)
+   '(cua-mode t nil (cua-base))
+   '(cursor-in-non-selected-windows nil)
+   '(delete-old-versions t)
+   '(desktop-path (quote ("/home/gianluca/.emacs.d/.cache/")))
+   '(display-line-numbers t)
+   '(electric-layout-mode t)
+   '(fill-column 120)
+   '(global-aggressive-indent-mode t)
+   '(global-prettify-symbols-mode t)
+   '(global-subword-mode t)
+   '(global-visual-line-mode t)
+   '(ispell-help-in-bufferp (quote electric))
+   '(ispell-silently-savep t)
+   '(ivy-count-format "(%d/%d) ")
+   '(kept-new-versions 16)
+   '(mouse-avoidance-mode (quote exile) nil (avoid))
+   '(package-selected-packages
+     (quote
+      (lv transient undo-tree packed f s less-css-mode fuzzy company-statistics company-c-headers company-auctex company-anaconda company auto-yasnippet yasnippet ac-ispell auto-complete web-mode tagedit slim-mode scss-mode sass-mode pug-mode haml-mode emmet-mode company-web web-completion-data async sql-indent swiper treepy graphql spinner parent-mode projectile helm helm-core flx smartparens iedit anzu highlight counsel evil goto-chg pkg-info epl popup avy dash hydra powerline ivy bind-key csv-mode recentf-ext buffer-move latex-extra yapfify yaml-mode visual-regexp-steroids visual-regexp unfill smeargle session ranger pyvenv pytest pyenv-mode py-isort pip-requirements pandoc-mode ox-pandoc ht orgit mwim mmm-mode markdown-toc markdown-mode magit-gitflow live-py-mode hy-mode dash-functional gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit git-commit ghub with-editor dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diff-hl deft cython-mode cmake-mode clang-format auto-dictionary auctex-latexmk auctex anaconda-mode pythonic ws-butler winum which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra indent-guide hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-make google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump diminish define-word counsel-projectile column-enforce-mode clean-aindent-mode bind-map auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link)))
+   '(paradox-github-token t)
+   '(read-quoted-char-radix 10)
+   '(safe-local-variable-values (quote ((buffer-file-coding-system . utf-8))))
+   '(tab-always-indent (quote complete))
+   '(tab-width 4)
+   '(which-function-mode t)
+   '(x-select-request-type (quote UTF8_STRING))
+   '(yank-excluded-properties t))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   )
+  )
