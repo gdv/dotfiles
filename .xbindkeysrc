@@ -29,7 +29,7 @@ KP_Down
 "wmctrl -xa Firefox || firefox"
 KP_Next
 
-"wmctrl -xa terminal || mate-terminal "
+"wmctrl -xa terminal || gnome-terminal "
 KP_Left
 
 "wmctrl -xa Zulip || zulip"
