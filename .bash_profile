@@ -92,3 +92,6 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+     [[ -s "/etc/profile.d/vte.sh" ]] && . "/etc/profile.d/vte.sh"
+
