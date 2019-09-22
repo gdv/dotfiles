@@ -84,4 +84,4 @@ colorscheme delek
 set formatoptions=tq
 set clipboard=unnamed
 
-let g:attach_check_keywords =',allego,allegato,allegati'
+let g:attach_check_keywords ='attach,attached,attaching,allego,allegato,allegati'
