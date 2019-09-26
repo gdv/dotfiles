@@ -82,6 +82,7 @@ inoremap <F12> <Esc>:AttachFile<CR>
 set background=dark
 colorscheme delek
 set formatoptions=tq
+set formatoptions+=a
 set clipboard=unnamed
 
 let g:attach_check_keywords ='attach,attached,attaching,allego,allegato,allegati'

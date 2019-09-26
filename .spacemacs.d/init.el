@@ -599,8 +599,8 @@ you should place your code here."
                                    ("example"     ?x "example:"        "~\\ref{%s}" nil ("Example" "Es." "Esempio"))
                                    ))
 
-        TeX-view-program-selection '((output-pdf "Atril"))
-        TeX-view-program-list '(("Atril" "atril --page-index=%(outpage) %o"))
+        TeX-view-program-selection '((output-pdf "Evince"))
+        TeX-view-program-list '(("Evince" "evince --page-index=%(outpage) %o"))
         )
   (defun tex-smart-period ()
     "Smart \".\" key: insert \".\n\".
@@ -633,7 +633,7 @@ you should place your code here."
   ;;       )
 
   (add-hook 'LaTeX-mode-hook #'latex-extra-mode)
-;  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
+                                        ;  (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)
   (add-hook 'LaTeX-mode-hook 'my-latex-mode-init)
 ;;; Counsel/Ivy/Swiper
   (setq counsel-find-file-at-point t
