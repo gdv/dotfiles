@@ -80,7 +80,7 @@ map <F12> :AttachFile<CR>
 inoremap <F12> <Esc>:AttachFile<CR>
 
 set background=dark
-colorscheme delek
+colorscheme slate  
 set formatoptions=tq
 set clipboard=unnamed
 
