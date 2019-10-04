@@ -69,7 +69,8 @@ ZSH_CUSTOM=$HOME/Devel/dotfiles/zsh
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colorize command-not-found common-aliases cp docker git-prompt git-extras python rsync tmux ubuntu)
+plugins=(git common-aliases cp docker git-prompt git-extras python tmux
+        )
 
 source $ZSH/oh-my-zsh.sh
 
