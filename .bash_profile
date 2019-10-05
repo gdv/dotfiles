@@ -25,7 +25,7 @@ export TODO="t"
 # Git coloring
 export SCM_CHECK=true
 export SCM_GIT_SHOW_DETAILS=true
-
+export SCM_GIT_IGNORE_UNTRACKED=true
 
 # LaTeX
 export TEXMFHOME=~/texmf
@@ -37,9 +37,6 @@ export PATH=~/.miniconda/bin:${PATH}
 # Custom environment
 export PATH=~/bin:${PATH}
 
-
-# Use bash completion package, if available
-[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
 
 # Set default umask
 umask 0022
@@ -78,6 +75,10 @@ export BASH_IT_THEME='bobby'
 export BASH_IT_CUSTOM=~/Devel/dotfiles/bash
 source $BASH_IT/bash_it.sh
 
+# Use bash completion package, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/gianluca/.miniconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -93,5 +94,26 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-     [[ -s "/etc/profile.d/vte.sh" ]] && . "/etc/profile.d/vte.sh"
+[[ -s "/etc/profile.d/vte.sh" ]] && . "/etc/profile.d/vte.sh"
 
+function conda_auto_env() {
+    if [ -e "environment.yml" ]; then
+        # echo "environment.yml file found"
+        ENV=$(head -n 1 environment.yml | cut -f2 -d ' ')
+        # Check if you are already in the environment
+        if [[ $PATH != *$ENV* ]]; then
+            # Check if the environment exists
+            source activate $ENV
+            if [ $? -eq 0 ]; then
+                :
+            else
+                # Create the environment and activate
+                echo "Conda env '$ENV' doesn't exist."
+                conda env create -q
+                source activate $ENV
+            fi
+        fi
+    fi
+}
+
+export PROMPT_COMMAND=conda_auto_env
